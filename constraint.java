@@ -3,7 +3,7 @@ import java.io.*;
 import java.lang.String;
 import java.util.ArrayList;
 
-// Class for constraints in CSP
+// Class for constraints in CSP //
 // A -- c1 -- B
 // c1 = A < B + 2, has scope {A,B}
 // The arc is <A,c1> is constraint(0,1,2,"<")
