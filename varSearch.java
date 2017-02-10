@@ -73,7 +73,7 @@ public class varSearch {
         
         // At this step everything should be consistent
         // If we are at the max depth, report find a solution
-        if (depth == node.size()) {
+        if (depth == node.size()+1) {
             printNode(node, depth, " solution");
             this.solutions.add(node);
             return;
