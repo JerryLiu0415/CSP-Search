@@ -2,6 +2,7 @@
 import java.io.*;
 import java.lang.String;
 import java.util.ArrayList;
+import java.lang.*;
 
 // Class for constraints in CSP //
 // A -- c1 -- B
@@ -41,10 +42,22 @@ public class constraint {
                 return a<(b+this.constant);
             case ">":
                 return a>(b+this.constant);
+            case "<=":
+                return a<=(b+this.constant);
+            case ">=":
+                return a>=(b+this.constant);
+            case "!=":
+                return a!=(b+this.constant);
             case "=":
                 return a==(b+this.constant);
-            case "%2":
-                return (a%2)==this.constant;
+            case "absEqual":
+                return (Math.abs(a-b)==(this.constant));
+            case "absNotEqual":
+                return (Math.abs(a-b)!=(this.constant));
+            case "absOdd":
+                return (Math.abs(a-b)%2==1);
+            case "absEven":
+                return (Math.abs(a-b)%2==0);
             default:
                 break;
         }

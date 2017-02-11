@@ -24,6 +24,8 @@ public class varSearch {
     // Global variable to collect solutions
     // A solution is a 1d array (node)
     ArrayList<ArrayList> solutions = new ArrayList<ArrayList>();
+    // Counting the number of fails for the report
+    int numFails = 0;
     
     
     //======================= Probably not needed
@@ -56,7 +58,7 @@ public class varSearch {
             int b = c.scopeB; // Second associated variable index
             // Only cares about values already been assigned
             // -1 won't make make constraints unhappy
-            if (node.get(a) != -1 && node.get(b) != -1) {
+            if (node.get(a) != null && node.get(b) != null) {
                 // If any constraint is not happy, break and label as fail
                 if (!c.isSatisfied(node.get(a), node.get(b))){
                     isAllConsistent = false;
@@ -67,14 +69,15 @@ public class varSearch {
         
         // If some constraint is violated, base case reached and terminate
         if (!isAllConsistent) {
-            printNode(node, depth, " fail");
+            printNode(node, depth, " failure");
+            numFails++;
             return;
         }
         
         // At this step everything should be consistent
         // If we are at the max depth, report find a solution
         if (depth == node.size()+1) {
-            printNode(node, depth, " solution");
+            printNode(node, depth, " solution!");
             this.solutions.add(node);
             return;
         }
@@ -85,8 +88,10 @@ public class varSearch {
         // At this step, neither some constraint is violated nor max depth reached
         // Recursively call search with the (depth-1)th variable assigned
         // Branching factor depends on the domain size of the (depth-1)th variable
+        
+        // Heuristics goes here
         for (int i = 0; i < domains.get(depth-1).size(); i++) {
-            ArrayList<Integer> newAsgn = node;
+            ArrayList<Integer> newAsgn = new ArrayList(node);
             newAsgn.set(depth-1, (int)(domains.get(depth-1).get(i)));
             search(newAsgn, depth+1);
         }
@@ -95,11 +100,19 @@ public class varSearch {
     // Print the current assignment with proper indientation
     public void printNode(ArrayList<Integer> node, int depth, String msg) {
         String spacing = "";
+        String content = "{A="+String.valueOf(node.get(0)) + ", " +
+        "B="+String.valueOf(node.get(1)) + ", " +
+        "C="+String.valueOf(node.get(2)) + ", " +
+        "D="+String.valueOf(node.get(3)) + ", " +
+        "E="+String.valueOf(node.get(4)) + ", " +
+        "F="+String.valueOf(node.get(5)) + ", " +
+        "G="+String.valueOf(node.get(6)) + ", " +
+        "H="+String.valueOf(node.get(7)) + "}";
+        
         for (int i = 0; i < depth; i++) {
             spacing += "  ";
         }
-        System.out.println(spacing + node + msg);
-        
+        System.out.println(spacing + content + msg);
     }
 
     //======================= Probably not needed
